@@ -24,11 +24,11 @@
     --sans:'Inter', system-ui, sans-serif;
     --disp:'Space Grotesk', var(--sans);
   }
-
+ 
   *{ box-sizing:border-box; }
   html{ scroll-behavior:smooth; }
   html:focus-within{ scroll-behavior:auto; }
-
+ 
   body{
     margin:0;
     background:var(--void);
@@ -38,7 +38,7 @@
     line-height:1.6;
     -webkit-font-smoothing:antialiased;
   }
-
+ 
   /* faint circuit texture */
   body::before{
     content:"";
@@ -51,10 +51,10 @@
     pointer-events:none;
     z-index:0;
   }
-
+ 
   a{ color:inherit; }
   img{ max-width:100%; display:block; }
-
+ 
   .wrap{
     max-width:900px;
     margin:0 auto;
@@ -62,12 +62,12 @@
     position:relative;
     z-index:1;
   }
-
+ 
   :focus-visible{
     outline:2px solid var(--trace);
     outline-offset:3px;
   }
-
+ 
   /* ---------- nav ---------- */
   header{
     position:sticky; top:0;
@@ -194,7 +194,7 @@
   }
   body[data-font-size="large"]{ --font-scale:1.14; }
   body[data-font-size="small"]{ --font-scale:.9; }
-
+ 
   /* ---------- hero ---------- */
   .hero{
     padding:110px 0 88px;
@@ -242,7 +242,7 @@
   .btn-primary:hover{ background:#7bf0b8; }
   .btn-ghost{ color:var(--text); }
   .btn-ghost:hover{ border-color:var(--trace); color:var(--trace); }
-
+ 
   /* ---------- section shell ---------- */
   section{
     padding:84px 0;
@@ -266,13 +266,13 @@
     margin:0;
     letter-spacing:-.01em;
   }
-
+ 
   .lede-block{
     color:var(--muted);
     max-width:64ch;
     font-size:calc(16px * var(--font-scale));
   }
-
+ 
   /* ---------- skills ---------- */
   .skill-groups{
     display:grid;
@@ -342,7 +342,7 @@
     transition:border-color .15s ease, color .15s ease;
   }
   .skill-media a:hover{ border-color:var(--trace); color:var(--trace); }
-
+ 
   /* ---------- timeline (signature element) ---------- */
   .timeline{
     position:relative;
@@ -377,7 +377,7 @@
   }
   .t-item.is-current .t-pad{ border-color:var(--solder); }
   .t-item.is-current .t-pad::after{ background:var(--solder); box-shadow:0 0 6px var(--solder); }
-
+ 
   .t-role{
     display:flex;
     flex-wrap:wrap;
@@ -404,7 +404,7 @@
     font-size:calc(14.5px * var(--font-scale));
   }
   .t-item li{ margin-bottom:5px; }
-
+ 
   /* ---------- certifications ---------- */
   .cert-grid{
     display:grid;
@@ -437,7 +437,7 @@
     text-transform:uppercase;
     letter-spacing:.05em;
   }
-
+ 
   /* ---------- footer / contact ---------- */
   footer{
     border-top:1px solid var(--line);
@@ -461,7 +461,7 @@
     font-size:calc(11.5px * var(--font-scale));
     color:#5a6663;
   }
-
+ 
   @media (max-width:760px){
     .skill-groups{ grid-template-columns:1fr; }
     .cert-grid{ grid-template-columns:1fr; }
@@ -479,7 +479,7 @@
     .accessibility{ margin-left:0; margin-right:10px; }
     .accessibility-panel{ right:-52px; }
   }
-
+ 
   @media (prefers-reduced-motion:reduce){
     html{ scroll-behavior:auto; }
     *{ transition:none !important; }
@@ -487,7 +487,7 @@
 </style>
 </head>
 <body>
-
+ 
 <header>
   <nav class="wrap">
     <a class="brand" href="#top"><span class="dot" aria-hidden="true"></span>C.AMOAH</a>
@@ -525,26 +525,26 @@
     </details>
   </nav>
 </header>
-
+ 
 <main id="top">
-
+ 
   <section class="hero wrap" style="border-top:none;">
     <p class="eyebrow">Manchester, UK · Computer Science, Level 3</p>
     <h1>Callistus Amoah</h1>
     <p class="lede">I build things — from soldering components onto motherboards to writing HTML and CSS. Currently studying Computer Science and working toward a career in computer engineering.</p>
     <div class="cta-row">
-      <a class="btn btn-primary" href="CV/Callistus_Amoah_CV_1030.pdf" download>Download CV</a>
+      <a class="btn btn-primary" href="Callistus%20Amoah%20CV_1030.pdf" download>Download CV</a>
       <a class="btn btn-ghost" href="#contact">Get in touch</a>
     </div>
   </section>
-
+ 
   <section id="about">
     <div class="wrap">
       <div class="sec-head"><span class="sec-num">01</span><h2>About</h2></div>
       <p class="lede-block">I'm an 18-year-old studying Computer Science at Manchester College, currently on my BTEC Level 3 after finishing Level 2 with an overall Distinction–Merit. I'm adaptable and quick to learn, with hands-on experience across software, hardware and customer-facing work. My long-term goal is a career in computer engineering, and I'm looking for opportunities to build on that with real-world experience.</p>
     </div>
   </section>
-
+ 
   <section id="skills">
     <div class="wrap">
       <div class="sec-head"><span class="sec-num">02</span><h2>Skills</h2></div>
@@ -587,7 +587,7 @@
       </div>
     </div>
   </section>
-
+ 
   <section id="experience">
     <div class="wrap">
       <div class="sec-head"><span class="sec-num">03</span><h2>Experience</h2></div>
@@ -617,7 +617,7 @@
           </ul>
         </div>
       </div>
-
+ 
       <div class="sec-head" style="margin-top:56px;"><span class="sec-num">04</span><h2>Education</h2></div>
       <div class="timeline">
         <div class="t-item is-current">
@@ -648,12 +648,12 @@
           </ul>
         </div>
       </div>
-
+ 
       <div class="sec-head" style="margin-top:56px;"><span class="sec-num">05</span><h2>Technology Club</h2></div>
       <p class="lede-block">Outside of lessons, I'm part of the Technology Club at Manchester College, where I've learned soldering techniques for electronic components, transplanted memory chips between different motherboards, and used 3D printers to design and produce parts.</p>
     </div>
   </section>
-
+ 
   <section id="certs">
     <div class="wrap">
       <div class="sec-head"><span class="sec-num">06</span><h2>Certifications</h2></div>
@@ -661,32 +661,32 @@
         <div class="cert-card">
           <h3>BTEC Level 2 Certificate, Computer Science</h3>
           <p class="cert-meta">Manchester College</p>
-          <a class="btn btn-ghost" href="certs/btec-level-2.pdf" target="_blank" rel="noopener">View certificate</a>
+          <a class="btn btn-ghost" href="btec-level-2.pdf" target="_blank" rel="noopener">View certificate</a>
         </div>
         <div class="cert-card">
           <h3>Beyond the Code — AI &amp; Computer Science</h3>
           <p class="cert-meta">Springpod, with Amazon · Issued Jul 2026</p>
-          <a class="btn btn-ghost" href="CV/Callistus_Amoah_-_2026-07-03_2779.pdf" target="_blank" rel="noopener">View certificate</a>
+          <a class="btn btn-ghost" href="Callistus%20Amoah%20-%202026-07-03_2779.pdf" target="_blank" rel="noopener">View certificate</a>
         </div>
         <div class="cert-card">
           <h3>On Cloud Nine — Cloud Computing Work Experience</h3>
           <p class="cert-meta">Springpod, with Amazon · Issued Jul 2026</p>
-          <a class="btn btn-ghost" href="CV/Callistus_Amoah_C.pdf" target="_blank" rel="noopener">View certificate</a>
+          <a class="btn btn-ghost" href="Callistus%20Amoah%20C.pdf" target="_blank" rel="noopener">View certificate</a>
         </div>
         <div class="cert-card">
           <h3>Getting Started with Cisco Packet Tracer</h3>
           <p class="cert-meta">Cisco Networking Academy</p>
-          <a class="btn btn-ghost" href="CV/Getting_Started_with_Cisco_Packet_Tracer_certificate_1529635-stu-tmc-ac-uk_243e7ca0-fcb4-4ab8-9c7d-e2237ce1625d.pdf" target="_blank" rel="noopener">View certificate</a>
+          <a class="btn btn-ghost" href="Getting_Started_with_Cisco_Packet_Tracer_certificate_1529635-stu-tmc-ac-uk_243e7ca0-fcb4-4ab8-9c7d-e2237ce1625d.pdf" target="_blank" rel="noopener">View certificate</a>
         </div>
         <div class="cert-card">
           <h3>AI Engineer: Career Simulation</h3>
           <p class="cert-meta">Career Simulation Program</p>
-          <a class="btn btn-ghost" href="CV/Callistus_Amoah_-_2026-09-15.pdf" target="_blank" rel="noopener">View certificate</a>
+          <a class="btn btn-ghost" href="Callistus%20Amoah%20-%202026-09-15.pdf" target="_blank" rel="noopener">View certificate</a>
         </div>
       </div>
     </div>
   </section>
-
+ 
   <footer id="contact">
     <div class="wrap">
       <div class="sec-head"><span class="sec-num">07</span><h2>Get in touch</h2></div>
@@ -698,9 +698,9 @@
       <p class="foot-note">© 2026 Callistus Amoah</p>
     </div>
   </footer>
-
+ 
 </main>
-
+ 
 <script>
   const toggle = document.getElementById('navToggle');
   const links = document.getElementById('navLinks');
@@ -713,7 +713,7 @@
   const textColor = document.getElementById('textColor');
   const accessibilityStatus = document.getElementById('accessibilityStatus');
   const defaultSettings = { background: '#0d1214', text: '#eaeeee', fontSize: 'normal' };
-
+ 
   const saveAccessibilitySettings = () => {
     localStorage.setItem('cvAccessibility', JSON.stringify({
       background: backgroundColor.value,
@@ -721,7 +721,7 @@
       fontSize: document.body.dataset.fontSize || 'normal'
     }));
   };
-
+ 
   const applyAccessibilitySettings = (settings) => {
     document.documentElement.style.setProperty('--void', settings.background);
     document.documentElement.style.setProperty('--text', settings.text);
@@ -729,26 +729,26 @@
     textColor.value = settings.text;
     document.body.dataset.fontSize = settings.fontSize;
   };
-
+ 
   try {
     const savedSettings = JSON.parse(localStorage.getItem('cvAccessibility'));
     applyAccessibilitySettings({ ...defaultSettings, ...savedSettings });
   } catch (error) {
     applyAccessibilitySettings(defaultSettings);
   }
-
+ 
   backgroundColor.addEventListener('input', () => {
     applyAccessibilitySettings({ background: backgroundColor.value, text: textColor.value, fontSize: document.body.dataset.fontSize });
     saveAccessibilitySettings();
     accessibilityStatus.textContent = 'Background colour updated.';
   });
-
+ 
   textColor.addEventListener('input', () => {
     applyAccessibilitySettings({ background: backgroundColor.value, text: textColor.value, fontSize: document.body.dataset.fontSize });
     saveAccessibilitySettings();
     accessibilityStatus.textContent = 'Text colour updated.';
   });
-
+ 
   document.querySelectorAll('[data-font-size]').forEach(button => {
     button.addEventListener('click', () => {
       document.body.dataset.fontSize = button.dataset.fontSize;
@@ -756,13 +756,13 @@
       accessibilityStatus.textContent = `Text size set to ${button.dataset.fontSize}.`;
     });
   });
-
+ 
   document.getElementById('accessibilityReset').addEventListener('click', () => {
     applyAccessibilitySettings(defaultSettings);
     saveAccessibilitySettings();
     accessibilityStatus.textContent = 'Display settings reset.';
   });
-
+ 
   const skillInfo = {
     html: {
       title: 'HTML',
@@ -813,29 +813,29 @@
       imageUrl: 'media/skills/building-pc-image.jpg'
     }
   };
-
+ 
   toggle.addEventListener('click', () => {
     const open = links.classList.toggle('open');
     toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
   });
-
+ 
   links.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
     links.classList.remove('open');
     toggle.setAttribute('aria-expanded', 'false');
   }));
-
+ 
   document.querySelectorAll('.skill-link').forEach(link => {
     link.addEventListener('click', (event) => {
       event.preventDefault();
       const skill = skillInfo[link.dataset.skill];
-
+ 
       if (!skill) return;
-
+ 
       skillTitle.textContent = skill.title;
       skillDescription.textContent = skill.description;
       videoLink.href = skill.videoUrl;
       imageLink.href = skill.imageUrl;
-
+ 
       if (link.dataset.skill === 'html') {
         videoLink.textContent = 'Open coursework site';
         videoLink.href = 'https://unit15asscallistusamoah.onrender.com';
@@ -852,12 +852,13 @@
         videoLink.style.display = skill.videoUrl ? 'inline-block' : 'none';
         imageLink.style.display = skill.imageUrl ? 'inline-block' : 'none';
       }
-
+ 
       skillPanel.classList.add('visible');
       skillPanel.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
     });
   });
 </script>
-
+ 
 </body>
 </html>
+ 
