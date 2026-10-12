@@ -1,0 +1,863 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Callistus Amoah — Computer Science Student</title>
+<meta name="description" content="Portfolio of Callistus Amoah — Computer Science student in Manchester, building hardware and software skills.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --void:#0d1214;
+    --panel:#141b1e;
+    --panel-2:#182023;
+    --line:#26312f;
+    --trace:#5fe3a6;
+    --trace-dim:#3a7a5e;
+    --solder:#e8a33d;
+    --text:#eaeeee;
+    --muted:#8fa09d;
+    --font-scale:1;
+    --mono:'IBM Plex Mono', ui-monospace, monospace;
+    --sans:'Inter', system-ui, sans-serif;
+    --disp:'Space Grotesk', var(--sans);
+  }
+
+  *{ box-sizing:border-box; }
+  html{ scroll-behavior:smooth; }
+  html:focus-within{ scroll-behavior:auto; }
+
+  body{
+    margin:0;
+    background:var(--void);
+    color:var(--text);
+    font-family:var(--sans);
+    font-size:calc(16px * var(--font-scale));
+    line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+  }
+
+  /* faint circuit texture */
+  body::before{
+    content:"";
+    position:fixed; inset:0;
+    background-image:
+      linear-gradient(var(--line) 1px, transparent 1px),
+      linear-gradient(90deg, var(--line) 1px, transparent 1px);
+    background-size:64px 64px;
+    opacity:.06;
+    pointer-events:none;
+    z-index:0;
+  }
+
+  a{ color:inherit; }
+  img{ max-width:100%; display:block; }
+
+  .wrap{
+    max-width:900px;
+    margin:0 auto;
+    padding:0 28px;
+    position:relative;
+    z-index:1;
+  }
+
+  :focus-visible{
+    outline:2px solid var(--trace);
+    outline-offset:3px;
+  }
+
+  /* ---------- nav ---------- */
+  header{
+    position:sticky; top:0;
+    background:rgba(13,18,20,.86);
+    backdrop-filter:blur(6px);
+    border-bottom:1px solid var(--line);
+    z-index:10;
+  }
+  nav.wrap{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    height:64px;
+  }
+  .brand{
+    font-family:var(--mono);
+    font-size:calc(14px * var(--font-scale));
+    letter-spacing:.03em;
+    color:var(--trace);
+    text-decoration:none;
+    display:flex; align-items:center; gap:8px;
+  }
+  .brand .dot{
+    width:8px; height:8px;
+    background:var(--trace);
+    box-shadow:0 0 8px var(--trace);
+  }
+  .navlinks{
+    display:flex;
+    gap:28px;
+    list-style:none;
+    margin:0; padding:0;
+  }
+  .navlinks a{
+    font-family:var(--mono);
+    font-size:calc(12.5px * var(--font-scale));
+    text-transform:uppercase;
+    letter-spacing:.08em;
+    text-decoration:none;
+    color:var(--muted);
+    transition:color .15s ease;
+    padding:6px 0;
+  }
+  .navlinks a:hover{ color:var(--text); }
+  .navtoggle{
+    display:none;
+    background:none; border:1px solid var(--line);
+    color:var(--text); font-family:var(--mono);
+    font-size:calc(12px * var(--font-scale)); padding:8px 10px; cursor:pointer;
+  }
+  .accessibility{
+    position:relative;
+    margin-left:auto;
+    font-family:var(--mono);
+  }
+  .accessibility summary{
+    color:var(--text);
+    border:1px solid var(--line);
+    cursor:pointer;
+    font-size:calc(11px * var(--font-scale));
+    padding:7px 9px;
+    list-style:none;
+  }
+  .accessibility summary::-webkit-details-marker{ display:none; }
+  .accessibility summary::before{ content:"[+] "; color:var(--trace); }
+  .accessibility[open] summary::before{ content:"[-] "; }
+  .accessibility-panel{
+    position:absolute;
+    right:0;
+    top:42px;
+    width:240px;
+    padding:16px;
+    background:var(--panel);
+    border:1px solid var(--line);
+    box-shadow:0 12px 30px rgba(0,0,0,.3);
+    z-index:20;
+  }
+  .accessibility-panel h2{
+    font-family:var(--disp);
+    font-size:calc(16px * var(--font-scale));
+    margin:0 0 12px;
+  }
+  .accessibility-field{
+    display:grid;
+    gap:5px;
+    margin-top:12px;
+  }
+  .accessibility-field label{
+    color:var(--muted);
+    font-size:calc(11px * var(--font-scale));
+    text-transform:uppercase;
+    letter-spacing:.06em;
+  }
+  .accessibility-field input[type="color"]{
+    width:100%;
+    height:34px;
+    padding:2px;
+    background:var(--void);
+    border:1px solid var(--line);
+    cursor:pointer;
+  }
+  .font-controls{
+    display:flex;
+    gap:6px;
+  }
+  .font-controls button,
+  .accessibility-reset{
+    flex:1;
+    background:transparent;
+    border:1px solid var(--line);
+    color:var(--text);
+    cursor:pointer;
+    font-family:var(--mono);
+    font-size:calc(11px * var(--font-scale));
+    padding:7px 5px;
+  }
+  .font-controls button:hover,
+  .accessibility-reset:hover{ border-color:var(--trace); color:var(--trace); }
+  .accessibility-reset{ width:100%; margin-top:14px; }
+  .accessibility-status{
+    color:var(--muted);
+    font-size:calc(11px * var(--font-scale));
+    margin:10px 0 0;
+  }
+  body[data-font-size="large"]{ --font-scale:1.14; }
+  body[data-font-size="small"]{ --font-scale:.9; }
+
+  /* ---------- hero ---------- */
+  .hero{
+    padding:110px 0 88px;
+  }
+  .eyebrow{
+    font-family:var(--mono);
+    font-size:calc(13px * var(--font-scale));
+    color:var(--solder);
+    letter-spacing:.12em;
+    text-transform:uppercase;
+    margin:0 0 18px;
+  }
+  h1{
+    font-family:var(--disp);
+    font-weight:700;
+    font-size:clamp(calc(38px * var(--font-scale)),calc(6vw * var(--font-scale)),calc(64px * var(--font-scale)));
+    line-height:1.03;
+    margin:0 0 20px;
+    letter-spacing:-.01em;
+  }
+  .hero p.lede{
+    font-size:calc(18px * var(--font-scale));
+    color:var(--muted);
+    max-width:56ch;
+    margin:0 0 34px;
+  }
+  .cta-row{ display:flex; gap:14px; flex-wrap:wrap; }
+  .btn{
+    font-family:var(--mono);
+    font-size:calc(13px * var(--font-scale));
+    text-transform:uppercase;
+    letter-spacing:.06em;
+    text-decoration:none;
+    padding:13px 22px;
+    border:1px solid var(--line);
+    display:inline-flex; align-items:center; gap:8px;
+    transition:border-color .15s ease, background .15s ease;
+  }
+  .btn-primary{
+    background:var(--trace);
+    color:#08110d;
+    border-color:var(--trace);
+    font-weight:600;
+  }
+  .btn-primary:hover{ background:#7bf0b8; }
+  .btn-ghost{ color:var(--text); }
+  .btn-ghost:hover{ border-color:var(--trace); color:var(--trace); }
+
+  /* ---------- section shell ---------- */
+  section{
+    padding:84px 0;
+    border-top:1px solid var(--line);
+    scroll-margin-top:92px;
+  }
+  .sec-head{
+    display:flex;
+    align-items:baseline;
+    gap:14px;
+    margin-bottom:32px;
+  }
+  .sec-num{
+    font-family:var(--mono);
+    font-size:calc(12px * var(--font-scale));
+    color:var(--trace-dim);
+  }
+  h2{
+    font-family:var(--disp);
+    font-size:calc(26px * var(--font-scale));
+    margin:0;
+    letter-spacing:-.01em;
+  }
+
+  .lede-block{
+    color:var(--muted);
+    max-width:64ch;
+    font-size:calc(16px * var(--font-scale));
+  }
+
+  /* ---------- skills ---------- */
+  .skill-groups{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:28px;
+  }
+  .skill-group h3{
+    font-family:var(--mono);
+    font-size:calc(12px * var(--font-scale));
+    text-transform:uppercase;
+    letter-spacing:.08em;
+    color:var(--solder);
+    margin:0 0 14px;
+  }
+  .chip-row{ display:flex; flex-wrap:wrap; gap:8px; }
+  .chip{
+    display:inline-block;
+    font-family:var(--mono);
+    font-size:calc(12.5px * var(--font-scale));
+    color:var(--text);
+    border:1px solid var(--line);
+    background:var(--panel);
+    padding:7px 11px;
+    text-decoration:none;
+    transition:border-color .15s ease, color .15s ease;
+  }
+  .chip:hover{ border-color:var(--trace); color:var(--trace); }
+  .chip:focus-visible{
+    outline:2px solid var(--trace);
+    outline-offset:2px;
+  }
+  .skill-detail-panel{
+    display:none;
+    margin-top:24px;
+    background:var(--panel);
+    border:1px solid var(--line);
+    padding:22px 20px;
+  }
+  .skill-detail-panel.visible{ display:block; }
+  .skill-detail-panel h4{
+    margin:0 0 8px;
+    font-family:var(--disp);
+    font-size:calc(20px * var(--font-scale));
+  }
+  .skill-detail-panel p{
+    margin:0;
+    color:var(--muted);
+    line-height:1.7;
+  }
+  .skill-media{
+    display:flex;
+    flex-wrap:wrap;
+    gap:12px;
+    margin-top:18px;
+  }
+  .skill-media a{
+    display:inline-block;
+    text-decoration:none;
+    font-family:var(--mono);
+    font-size:calc(12px * var(--font-scale));
+    letter-spacing:.06em;
+    text-transform:uppercase;
+    color:var(--text);
+    background:var(--void);
+    border:1px solid var(--line);
+    padding:10px 14px;
+    transition:border-color .15s ease, color .15s ease;
+  }
+  .skill-media a:hover{ border-color:var(--trace); color:var(--trace); }
+
+  /* ---------- timeline (signature element) ---------- */
+  .timeline{
+    position:relative;
+    padding-left:34px;
+  }
+  .timeline::before{
+    content:"";
+    position:absolute;
+    left:5px; top:6px; bottom:6px;
+    width:1px;
+    background:
+      linear-gradient(var(--trace-dim), var(--trace-dim)) no-repeat;
+    background-size:1px 100%;
+  }
+  .t-item{
+    position:relative;
+    padding-bottom:38px;
+  }
+  .t-item:last-child{ padding-bottom:0; }
+  .t-pad{
+    position:absolute;
+    left:-34px; top:4px;
+    width:11px; height:11px;
+    background:var(--panel);
+    border:1.5px solid var(--trace);
+  }
+  .t-pad::after{
+    content:"";
+    position:absolute;
+    inset:3px;
+    background:var(--trace);
+  }
+  .t-item.is-current .t-pad{ border-color:var(--solder); }
+  .t-item.is-current .t-pad::after{ background:var(--solder); box-shadow:0 0 6px var(--solder); }
+
+  .t-role{
+    display:flex;
+    flex-wrap:wrap;
+    justify-content:space-between;
+    gap:8px 20px;
+    margin-bottom:6px;
+  }
+  .t-role h3{
+    font-family:var(--disp);
+    font-size:calc(17px * var(--font-scale));
+    font-weight:600;
+    margin:0;
+  }
+  .t-date{
+    font-family:var(--mono);
+    font-size:calc(12px * var(--font-scale));
+    color:var(--muted);
+    white-space:nowrap;
+  }
+  .t-item ul{
+    margin:10px 0 0;
+    padding-left:18px;
+    color:var(--muted);
+    font-size:calc(14.5px * var(--font-scale));
+  }
+  .t-item li{ margin-bottom:5px; }
+
+  /* ---------- certifications ---------- */
+  .cert-grid{
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+    gap:16px;
+  }
+  .cert-card{
+    background:var(--panel);
+    border:1px solid var(--line);
+    padding:20px;
+    position:relative;
+  }
+  .cert-card::before{
+    content:"";
+    position:absolute;
+    top:-1px; left:20px;
+    width:16px; height:4px;
+    background:var(--trace);
+  }
+  .cert-card h3{
+    font-family:var(--disp);
+    font-size:calc(16px * var(--font-scale));
+    margin:0 0 6px;
+    line-height:1.3;
+  }
+  .cert-meta{
+    font-family:var(--mono);
+    font-size:calc(11.5px * var(--font-scale));
+    color:var(--muted);
+    text-transform:uppercase;
+    letter-spacing:.05em;
+  }
+
+  /* ---------- footer / contact ---------- */
+  footer{
+    border-top:1px solid var(--line);
+    padding:56px 0 40px;
+  }
+  footer h2{ margin-bottom:14px; }
+  .contact-row{
+    display:flex;
+    flex-wrap:wrap;
+    gap:10px 28px;
+    font-family:var(--mono);
+    font-size:calc(14px * var(--font-scale));
+    color:var(--muted);
+    margin-top:18px;
+  }
+  .contact-row a{ text-decoration:none; color:var(--text); }
+  .contact-row a:hover{ color:var(--trace); }
+  .foot-note{
+    margin-top:40px;
+    font-family:var(--mono);
+    font-size:calc(11.5px * var(--font-scale));
+    color:#5a6663;
+  }
+
+  @media (max-width:760px){
+    .skill-groups{ grid-template-columns:1fr; }
+    .cert-grid{ grid-template-columns:1fr; }
+    .navlinks{
+      position:absolute; top:64px; left:0; right:0;
+      background:var(--void);
+      border-bottom:1px solid var(--line);
+      flex-direction:column;
+      padding:18px 28px;
+      gap:16px;
+      display:none;
+    }
+    .navlinks.open{ display:flex; }
+    .navtoggle{ display:block; }
+    .accessibility{ margin-left:0; margin-right:10px; }
+    .accessibility-panel{ right:-52px; }
+  }
+
+  @media (prefers-reduced-motion:reduce){
+    html{ scroll-behavior:auto; }
+    *{ transition:none !important; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <nav class="wrap">
+    <a class="brand" href="#top"><span class="dot" aria-hidden="true"></span>C.AMOAH</a>
+    <button class="navtoggle" id="navToggle" aria-expanded="false" aria-controls="navLinks">MENU</button>
+    <ul class="navlinks" id="navLinks">
+      <li><a href="#about">About</a></li>
+      <li><a href="#skills">Skills</a></li>
+      <li><a href="#experience">Experience</a></li>
+      <li><a href="#certs">Certifications</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+    <details class="accessibility">
+      <summary>ACCESSIBILITY</summary>
+      <div class="accessibility-panel">
+        <h2>Display settings</h2>
+        <div class="accessibility-field">
+          <label for="backgroundColor">Background colour</label>
+          <input id="backgroundColor" type="color" value="#0d1214">
+        </div>
+        <div class="accessibility-field">
+          <label for="textColor">Text colour</label>
+          <input id="textColor" type="color" value="#eaeeee">
+        </div>
+        <div class="accessibility-field">
+          <span class="accessibility-field label">Text size</span>
+          <div class="font-controls" role="group" aria-label="Text size">
+            <button type="button" data-font-size="small" aria-label="Make text smaller">A-</button>
+            <button type="button" data-font-size="normal" aria-label="Use normal text size">A</button>
+            <button type="button" data-font-size="large" aria-label="Make text larger">A+</button>
+          </div>
+        </div>
+        <button class="accessibility-reset" id="accessibilityReset" type="button">Reset settings</button>
+        <p class="accessibility-status" id="accessibilityStatus" aria-live="polite">Settings are saved on this device.</p>
+      </div>
+    </details>
+  </nav>
+</header>
+
+<main id="top">
+
+  <section class="hero wrap" style="border-top:none;">
+    <p class="eyebrow">Manchester, UK · Computer Science, Level 3</p>
+    <h1>Callistus Amoah</h1>
+    <p class="lede">I build things — from soldering components onto motherboards to writing HTML and CSS. Currently studying Computer Science and working toward a career in computer engineering.</p>
+    <div class="cta-row">
+      <a class="btn btn-primary" href="CV/Callistus_Amoah_CV_1030.pdf" download>Download CV</a>
+      <a class="btn btn-ghost" href="#contact">Get in touch</a>
+    </div>
+  </section>
+
+  <section id="about">
+    <div class="wrap">
+      <div class="sec-head"><span class="sec-num">01</span><h2>About</h2></div>
+      <p class="lede-block">I'm an 18-year-old studying Computer Science at Manchester College, currently on my BTEC Level 3 after finishing Level 2 with an overall Distinction–Merit. I'm adaptable and quick to learn, with hands-on experience across software, hardware and customer-facing work. My long-term goal is a career in computer engineering, and I'm looking for opportunities to build on that with real-world experience.</p>
+    </div>
+  </section>
+
+  <section id="skills">
+    <div class="wrap">
+      <div class="sec-head"><span class="sec-num">02</span><h2>Skills</h2></div>
+      <div class="skill-groups">
+        <div class="skill-group">
+          <h3>Software &amp; IT</h3>
+          <div class="chip-row">
+            <a class="chip skill-link" href="https://unit15asscallistusamoah.onrender.com" target="_blank" rel="noopener noreferrer" data-skill="html">HTML</a>
+            <a class="chip skill-link" href="#skill-detail" data-skill="css">CSS</a>
+            <a class="chip skill-link" href="#skill-detail" data-skill="ux-design">UX design</a>
+            <a class="chip skill-link" href="#skill-detail" data-skill="computer-literacy">Computer literacy</a>
+          </div>
+        </div>
+        <div class="skill-group">
+          <h3>Hardware</h3>
+          <div class="chip-row">
+            <a class="chip skill-link" href="#skill-detail" data-skill="soldering">Soldering</a>
+            <a class="chip skill-link" href="#skill-detail" data-skill="motherboard-repair">Motherboard repair</a>
+            <a class="chip skill-link" href="#skill-detail" data-skill="3d-printing">3D printing</a>
+            <a class="chip skill-link" href="#skill-detail" data-skill="building-pc">Building a PC</a>
+          </div>
+        </div>
+        <div class="skill-group">
+          <h3>People &amp; process</h3>
+          <div class="chip-row">
+            <span class="chip">Customer service</span>
+            <span class="chip">Cash handling</span>
+            <span class="chip">Teamwork</span>
+            <span class="chip">Communication</span>
+          </div>
+        </div>
+      </div>
+      <div class="skill-detail-panel" id="skill-detail" aria-live="polite">
+        <h4 id="skill-title">Select a skill</h4>
+        <p id="skill-description">Click any software or hardware skill above to read more about it.</p>
+        <div class="skill-media" id="skill-media">
+          <a id="video-link" href="https://www.youtube.com/watch?v=aqz-KE-bpKQ" target="_blank" rel="noopener noreferrer" style="display:none;">Watch video</a>
+          <a id="image-link" href="https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=1200&q=80" target="_blank" rel="noopener noreferrer" style="display:none;">View image</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="experience">
+    <div class="wrap">
+      <div class="sec-head"><span class="sec-num">03</span><h2>Experience</h2></div>
+      <div class="timeline">
+        <div class="t-item is-current">
+          <span class="t-pad" aria-hidden="true"></span>
+          <div class="t-role">
+            <h3> Amazon</h3>
+            <span class="t-date">Nov 2025 – Present</span>
+          </div>
+          <ul>
+            <li>Maintain cleanliness and hygiene standards across designated areas of the site.</li>
+            <li>Follow health and safety procedures, including correct use of cleaning equipment and materials.</li>
+            <li>Work reliably as part of a team to keep the facility running smoothly.</li>
+          </ul>
+        </div>
+        <div class="t-item">
+          <span class="t-pad" aria-hidden="true"></span>
+          <div class="t-role">
+            <h3>Selling Assistant — Family Grocery Store, Ghana</h3>
+            <span class="t-date">Level 2 placement</span>
+          </div>
+          <ul>
+            <li>Handled cash transactions and operated the till/register efficiently.</li>
+            <li>Set up product displays and kept the shop clean and well organised.</li>
+            <li>Assisted customers with product enquiries and supported opening/closing procedures.</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="sec-head" style="margin-top:56px;"><span class="sec-num">04</span><h2>Education</h2></div>
+      <div class="timeline">
+        <div class="t-item is-current">
+          <span class="t-pad" aria-hidden="true"></span>
+          <div class="t-role">
+            <h3>BTEC Level 3, Computer Science — Manchester College</h3>
+            <span class="t-date">Sep 2025 – Present</span>
+          </div>
+        </div>
+        <div class="t-item">
+          <span class="t-pad" aria-hidden="true"></span>
+          <div class="t-role">
+            <h3>BTEC Level 2, Computer Science — Manchester College</h3>
+            <span class="t-date">Sep 2024 – Jul 2025</span>
+          </div>
+          <ul>
+            <li>Achieved an overall grade of Distinction–Merit (DM).</li>
+          </ul>
+        </div>
+        <div class="t-item">
+          <span class="t-pad" aria-hidden="true"></span>
+          <div class="t-role">
+            <h3>GCSEs — Burnage Academy for Boys</h3>
+            <span class="t-date">Jun 2023 – Jun 2024</span>
+          </div>
+          <ul>
+            <li>English, English Literature, Maths, Science, Religious Studies, Design &amp; Technology, EAL and Music.</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="sec-head" style="margin-top:56px;"><span class="sec-num">05</span><h2>Technology Club</h2></div>
+      <p class="lede-block">Outside of lessons, I'm part of the Technology Club at Manchester College, where I've learned soldering techniques for electronic components, transplanted memory chips between different motherboards, and used 3D printers to design and produce parts.</p>
+    </div>
+  </section>
+
+  <section id="certs">
+    <div class="wrap">
+      <div class="sec-head"><span class="sec-num">06</span><h2>Certifications</h2></div>
+      <div class="cert-grid">
+        <div class="cert-card">
+          <h3>BTEC Level 2 Certificate, Computer Science</h3>
+          <p class="cert-meta">Manchester College</p>
+          <a class="btn btn-ghost" href="certs/btec-level-2.pdf" target="_blank" rel="noopener">View certificate</a>
+        </div>
+        <div class="cert-card">
+          <h3>Beyond the Code — AI &amp; Computer Science</h3>
+          <p class="cert-meta">Springpod, with Amazon · Issued Jul 2026</p>
+          <a class="btn btn-ghost" href="CV/Callistus_Amoah_-_2026-07-03_2779.pdf" target="_blank" rel="noopener">View certificate</a>
+        </div>
+        <div class="cert-card">
+          <h3>On Cloud Nine — Cloud Computing Work Experience</h3>
+          <p class="cert-meta">Springpod, with Amazon · Issued Jul 2026</p>
+          <a class="btn btn-ghost" href="CV/Callistus_Amoah_C.pdf" target="_blank" rel="noopener">View certificate</a>
+        </div>
+        <div class="cert-card">
+          <h3>Getting Started with Cisco Packet Tracer</h3>
+          <p class="cert-meta">Cisco Networking Academy</p>
+          <a class="btn btn-ghost" href="CV/Getting_Started_with_Cisco_Packet_Tracer_certificate_1529635-stu-tmc-ac-uk_243e7ca0-fcb4-4ab8-9c7d-e2237ce1625d.pdf" target="_blank" rel="noopener">View certificate</a>
+        </div>
+        <div class="cert-card">
+          <h3>AI Engineer: Career Simulation</h3>
+          <p class="cert-meta">Career Simulation Program</p>
+          <a class="btn btn-ghost" href="CV/Callistus_Amoah_-_2026-09-15.pdf" target="_blank" rel="noopener">View certificate</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer id="contact">
+    <div class="wrap">
+      <div class="sec-head"><span class="sec-num">07</span><h2>Get in touch</h2></div>
+      <p class="lede-block">I'm looking for work experience and opportunities in computer science and computer engineering. Feel free to reach out.</p>
+      <div class="contact-row">
+        <a href="mailto:amoahcallistus5@gmail.com">amoahcallistus5@gmail.com</a>
+        <span>Manchester, United Kingdom</span>
+      </div>
+      <p class="foot-note">© 2026 Callistus Amoah</p>
+    </div>
+  </footer>
+
+</main>
+
+<script>
+  const toggle = document.getElementById('navToggle');
+  const links = document.getElementById('navLinks');
+  const skillPanel = document.getElementById('skill-detail');
+  const skillTitle = document.getElementById('skill-title');
+  const skillDescription = document.getElementById('skill-description');
+  const videoLink = document.getElementById('video-link');
+  const imageLink = document.getElementById('image-link');
+  const backgroundColor = document.getElementById('backgroundColor');
+  const textColor = document.getElementById('textColor');
+  const accessibilityStatus = document.getElementById('accessibilityStatus');
+  const defaultSettings = { background: '#0d1214', text: '#eaeeee', fontSize: 'normal' };
+
+  const saveAccessibilitySettings = () => {
+    localStorage.setItem('cvAccessibility', JSON.stringify({
+      background: backgroundColor.value,
+      text: textColor.value,
+      fontSize: document.body.dataset.fontSize || 'normal'
+    }));
+  };
+
+  const applyAccessibilitySettings = (settings) => {
+    document.documentElement.style.setProperty('--void', settings.background);
+    document.documentElement.style.setProperty('--text', settings.text);
+    backgroundColor.value = settings.background;
+    textColor.value = settings.text;
+    document.body.dataset.fontSize = settings.fontSize;
+  };
+
+  try {
+    const savedSettings = JSON.parse(localStorage.getItem('cvAccessibility'));
+    applyAccessibilitySettings({ ...defaultSettings, ...savedSettings });
+  } catch (error) {
+    applyAccessibilitySettings(defaultSettings);
+  }
+
+  backgroundColor.addEventListener('input', () => {
+    applyAccessibilitySettings({ background: backgroundColor.value, text: textColor.value, fontSize: document.body.dataset.fontSize });
+    saveAccessibilitySettings();
+    accessibilityStatus.textContent = 'Background colour updated.';
+  });
+
+  textColor.addEventListener('input', () => {
+    applyAccessibilitySettings({ background: backgroundColor.value, text: textColor.value, fontSize: document.body.dataset.fontSize });
+    saveAccessibilitySettings();
+    accessibilityStatus.textContent = 'Text colour updated.';
+  });
+
+  document.querySelectorAll('[data-font-size]').forEach(button => {
+    button.addEventListener('click', () => {
+      document.body.dataset.fontSize = button.dataset.fontSize;
+      saveAccessibilitySettings();
+      accessibilityStatus.textContent = `Text size set to ${button.dataset.fontSize}.`;
+    });
+  });
+
+  document.getElementById('accessibilityReset').addEventListener('click', () => {
+    applyAccessibilitySettings(defaultSettings);
+    saveAccessibilitySettings();
+    accessibilityStatus.textContent = 'Display settings reset.';
+  });
+
+  const skillInfo = {
+    html: {
+      title: 'HTML',
+      description: 'I used HTML to structure my coursework website, creating clear sections for my work, skills and contact details.',
+      videoUrl: 'https://unit15asscallistusamoah.onrender.com',
+      imageUrl: ''
+    },
+    css: {
+      title: 'CSS',
+      description: 'CSS controls the visual styling of a webpage, including colours, spacing, layout and responsiveness. It helps turn a simple structure into a clean and professional design.',
+      videoUrl: 'media/skills/css-video.mp4',
+      imageUrl: 'media/skills/css-image.jpg'
+    },
+    'ux-design': {
+      title: 'UX design',
+      description: 'I used UX design principles to plan a clear and user-friendly interface for my project, focusing on layout, flow and readability.',
+      videoUrl: 'https://app.moqups.com/sHtXWk5nIhvAErGeerPSWzfNDNPJHPj7/view/page/a58c023d7',
+      imageUrl: ''
+    },
+    'computer-literacy': {
+      title: 'Computer literacy',
+      description: 'Computer literacy means being comfortable using digital tools, managing files, understanding software, and solving everyday technical problems effectively.',
+      videoUrl: 'media/skills/computer-literacy-video.mp4',
+      imageUrl: 'media/skills/computer-literacy-image.jpg'
+    },
+    soldering: {
+      title: 'Soldering',
+      description: 'Soldering is the process of joining electronic components to a circuit board using heat and solder. It is a core practical skill for building and repairing devices.',
+      videoUrl: 'media/skills/soldering-video.mp4',
+      imageUrl: 'media/skills/soldering-image.jpg'
+    },
+    'motherboard-repair': {
+      title: 'Motherboard repair',
+      description: 'Motherboard repair involves diagnosing hardware issues, replacing faulty parts and testing each connection carefully to restore a device to working order.',
+      videoUrl: 'media/skills/motherboard-repair-video.mp4',
+      imageUrl: 'media/skills/motherboard-repair-image.jpg'
+    },
+    '3d-printing': {
+      title: '3D printing',
+      description: '3D printing allows me to create physical prototypes and custom parts by building them layer by layer from a digital design.',
+      videoUrl: 'media/skills/3d-printing-video.mp4',
+      imageUrl: 'media/skills/3d-printing-image.jpg'
+    },
+    'building-pc': {
+      title: 'Building a PC',
+      description: 'Building a PC involves selecting compatible parts, assembling the system carefully, and testing hardware to make sure the computer runs correctly and reliably.',
+      videoUrl: 'media/skills/building-pc-video.mp4',
+      imageUrl: 'media/skills/building-pc-image.jpg'
+    }
+  };
+
+  toggle.addEventListener('click', () => {
+    const open = links.classList.toggle('open');
+    toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+  });
+
+  links.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
+    links.classList.remove('open');
+    toggle.setAttribute('aria-expanded', 'false');
+  }));
+
+  document.querySelectorAll('.skill-link').forEach(link => {
+    link.addEventListener('click', (event) => {
+      event.preventDefault();
+      const skill = skillInfo[link.dataset.skill];
+
+      if (!skill) return;
+
+      skillTitle.textContent = skill.title;
+      skillDescription.textContent = skill.description;
+      videoLink.href = skill.videoUrl;
+      imageLink.href = skill.imageUrl;
+
+      if (link.dataset.skill === 'html') {
+        videoLink.textContent = 'Open coursework site';
+        videoLink.href = 'https://unit15asscallistusamoah.onrender.com';
+        videoLink.style.display = 'inline-block';
+        imageLink.style.display = 'none';
+      } else if (link.dataset.skill === 'ux-design') {
+        videoLink.textContent = 'Open UX mockup';
+        videoLink.href = 'https://app.moqups.com/sHtXWk5nIhvAErGeerPSWzfNDNPJHPj7/view/page/a58c023d7';
+        videoLink.style.display = 'inline-block';
+        imageLink.style.display = 'none';
+      } else {
+        videoLink.textContent = 'Watch video';
+        imageLink.textContent = 'View image';
+        videoLink.style.display = skill.videoUrl ? 'inline-block' : 'none';
+        imageLink.style.display = skill.imageUrl ? 'inline-block' : 'none';
+      }
+
+      skillPanel.classList.add('visible');
+      skillPanel.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    });
+  });
+</script>
+
+</body>
+</html>
